@@ -1,0 +1,29 @@
+/* NEXT School — typography tokens.
+   Site uses a geometric grotesque (Montserrat via Google Fonts substitution — flag: original font files not provided). */
+:root {
+  --font-sans: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Scale (desktop) */
+  --text-hero: 56px;        /* WELCOME TO THE REVOLUTION */
+  --text-h1: 42px;
+  --text-h2: 34px;          /* section titles: SCHOOLS, MICROSCHOOLS */
+  --text-h3: 24px;
+  --text-h4: 18px;
+  --text-body-lg: 19px;     /* lead paragraphs, quotes */
+  --text-body-size: 16px;
+  --text-small: 14px;
+  --text-caption: 12px;
+
+  /* Weights */
+  --weight-heading: 700;
+  --weight-hero: 800;
+  --weight-body: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Casing & tracking — headings and buttons are ALWAYS uppercase */
+  --tracking-heading: 0.02em;
+  --tracking-caps: 0.08em;   /* nav items, buttons, labels */
+  --leading-heading: 1.15;
+  --leading-body: 1.7;
+}
