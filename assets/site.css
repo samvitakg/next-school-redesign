@@ -1,0 +1,100 @@
+
+:root {
+  
+  --color-yellow: #FDB913;   
+  --color-cyan: #00B8D3;     
+  --color-purple: #74489D;   
+  --color-green: #8DC63F;    
+  --color-red: #EF4957;      
+  --color-charcoal: #2D3236; 
+
+  
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-gray-700: #54595F; 
+  --color-gray-400: #9DA2A6; 
+  --color-gray-200: #E4E6E8; 
+  --color-gray-50: #F6F7F8;  
+
+  
+  --surface-page: var(--color-white);
+  --surface-dark: var(--color-charcoal);
+  --surface-tint: var(--color-gray-50);
+  --surface-card: var(--color-white);
+
+  --text-heading: var(--color-charcoal);
+  --text-body: var(--color-gray-700);
+  --text-muted: var(--color-gray-400);
+  --text-on-dark: var(--color-white);
+  --text-on-accent: var(--color-white);
+
+  --border-hairline: var(--color-gray-200);
+
+  --accent-primary: var(--color-cyan);
+  --link: var(--color-cyan);
+  --link-hover: #009BB2;
+
+  
+  --band-green: var(--color-green);
+  --band-cyan: var(--color-cyan);
+  --band-purple: var(--color-purple);
+  --band-yellow: var(--color-yellow);
+  --band-red: var(--color-red);
+}
+
+:root {
+  --font-sans: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+
+  
+  --text-hero: 56px;        
+  --text-h1: 42px;
+  --text-h2: 34px;          
+  --text-h3: 24px;
+  --text-h4: 18px;
+  --text-body-lg: 19px;     
+  --text-body-size: 16px;
+  --text-small: 14px;
+  --text-caption: 12px;
+
+  
+  --weight-heading: 700;
+  --weight-hero: 800;
+  --weight-body: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  
+  --tracking-heading: 0.02em;
+  --tracking-caps: 0.08em;   
+  --leading-heading: 1.15;
+  --leading-body: 1.7;
+}
+
+:root {
+  
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-section: 96px;     
+  --container-max: 1140px;
+
+  
+  --radius-pill: 999px;
+  --radius-sm: 3px;
+  --radius-none: 0px;
+
+  
+  --shadow-card: 0 2px 12px rgba(45, 50, 54, 0.10);
+  --shadow-none: none;
+
+  
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1); 
+  --duration-fast: 150ms; 
+  --duration-base: 250ms; 
+}
