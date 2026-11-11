@@ -52,6 +52,25 @@
   .nx-skip { position:absolute; left:12px; top:-80px; z-index:100; background:var(--color-yellow); color:var(--color-charcoal); padding:12px 18px; font-weight:800; font-size:14px; text-decoration:none; border-radius:999px; }
   .nx-skip:focus { top:12px; }
   .nx-bio-t { display:none; }
+  @media (max-width:700px) {
+    /* steps: number beside the heading instead of above it */
+    .nx-step { display:grid !important; grid-template-columns:auto minmax(0,1fr); column-gap:14px; row-gap:8px !important; align-items:baseline; padding-top:16px !important; }
+    .nx-step > span:first-child { font-size:24px !important; }
+    .nx-step > p { grid-column:1 / -1; }
+    /* icon tiles: icon beside the heading, less padding */
+    .nx-tile { display:grid !important; grid-template-columns:auto minmax(0,1fr); column-gap:14px; row-gap:10px !important; align-items:center; padding:20px !important; }
+    .nx-tile > span:first-child { width:40px !important; height:40px !important; font-size:18px !important; }
+    .nx-tile > p { grid-column:1 / -1; }
+    /* team and quote cards: one row you swipe sideways, next card peeks in */
+    .nx-swipe { display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; gap:12px !important; margin:0 -20px; padding:4px 20px 16px; scroll-padding-inline:20px; background:none !important; overscroll-behavior-x:contain; }
+    .nx-swipe > * { flex:0 0 min(84%,340px); scroll-snap-align:start; box-sizing:border-box; }
+    .nx-swipe > article { padding:20px; box-shadow:inset 0 0 0 1px rgba(127,127,127,0.28); }
+    .nx-swipe:focus-visible { outline:2px solid var(--color-yellow); outline-offset:-2px; }
+    /* enquiry form: no repeated title (the section heading says it), tighter spacing */
+    .nx-form { gap:20px !important; padding:22px 20px 24px !important; }
+    .nx-form > span:first-child { display:none; }
+    .nx-form > div:first-of-type { gap:14px !important; }
+  }
   @media (max-width:760px) { @supports selector(:has(*)) {
     .nx-bio > p { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:4; overflow:hidden; }
     .nx-bio:has(input:checked) > p { display:block; overflow:visible; }
@@ -267,6 +286,7 @@
   if(C.componentDidMount) C.componentDidMount();
 })();
 </script>
-<a href="https://www.nextschool.org" target="_blank" rel="noopener" style="position:fixed;left:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:8px;background:rgba(24,28,32,0.92);color:#fff;font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:0.02em;padding:10px 14px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.25)"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-yellow)"></span>Design preview — not the official NEXT School website</a>
+<a class="nx-badge" href="https://www.nextschool.org" target="_blank" rel="noopener" style="position:fixed;left:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:8px;background:rgba(24,28,32,0.92);color:#fff;font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:0.02em;padding:10px 14px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.25)"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-yellow)"></span><span class="nx-badge-l">Design preview — not the official NEXT School website</span><span class="nx-badge-s">Preview · not the official site</span></a>
+<style>.nx-badge-s{display:none}@media (max-width:700px){.nx-badge-l{display:none}.nx-badge-s{display:inline}a.nx-badge{left:10px!important;bottom:10px!important;padding:7px 11px!important;font-size:11px!important;opacity:0.92}}</style>
 </body>
 </html>
