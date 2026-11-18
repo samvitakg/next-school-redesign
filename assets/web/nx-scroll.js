@@ -4,12 +4,11 @@
 (function () {
   var R = document.documentElement;
   if (!window.ScrollCraft) { R.classList.remove('sc-on'); return; }
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var splits = [].slice.call(document.querySelectorAll('[data-nx-split]'));
-  // reduced motion: the comparison stays a plain table (not pinned)
-  if (reduce) splits.forEach(function (s) { s.removeAttribute('data-sc-act'); });
+  // The strike runs under reduced motion too: it only moves while the reader scrolls (no autoplay, no parallax).
+  // Without JavaScript the comparison is a plain table.
   ScrollCraft.mount(document.body);
-  if (!reduce) splits.forEach(setup);
+  splits.forEach(setup);
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function smooth(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
