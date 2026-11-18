@@ -9,6 +9,51 @@
   // Without JavaScript the comparison is a plain table.
   ScrollCraft.mount(document.body);
   splits.forEach(setup);
+  [].slice.call(document.querySelectorAll('[data-nx-rail]')).forEach(rail);
+
+  /* Photo rail: while the section is pinned, scrolling down walks the row of campus photos to the left.
+     The photo nearest the middle settles from a slight zoom; a yellow bar shows how far along you are. */
+  function rail(act) {
+    act.classList.add('nx-rail-live');
+    var stage = act.querySelector('[data-sc-stage]');
+    var track = act.querySelector('.nx-rail-track');
+    var figs = [].slice.call(act.querySelectorAll('.nx-rail-ph'));
+    var travel = 0, last = -1, running = false;
+    function measure() {
+      var sn = document.querySelector('.nx-subnav');
+      stage.style.setProperty('--nx-top', (76 + (sn ? sn.offsetHeight : 0)) + 'px');
+      // scrollWidth leaves out the end padding, so add one gutter to stop the last photo short of the edge
+      travel = Math.max(0, track.scrollWidth - stage.clientWidth + (parseFloat(getComputedStyle(track).paddingLeft) || 0));
+      act.style.setProperty('--travel', travel.toFixed(0));
+      last = -1;
+    }
+    function frame() {
+      var p = parseFloat(act.style.getPropertyValue('--sc-p'));
+      if (isNaN(p)) p = 0;
+      if (p !== last) {
+        last = p;
+        var rp = smooth((p - 0.06) / 0.88);
+        act.style.setProperty('--rp', rp.toFixed(4));
+        var mid = innerWidth / 2;
+        for (var i = 0; i < figs.length; i++) {
+          var r = figs[i].getBoundingClientRect();
+          var d = Math.abs(r.left + r.width / 2 - mid) / innerWidth;
+          figs[i].style.setProperty('--near', clamp(1 - d * 1.6, 0, 1).toFixed(3));
+        }
+      }
+      if (running) requestAnimationFrame(frame);
+    }
+    measure();
+    addEventListener('resize', measure);
+    figs.forEach(function (f) { var im = f.querySelector('img'); if (im && !im.complete) im.addEventListener('load', measure); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+    new IntersectionObserver(function (en) {
+      var on = en[0].isIntersecting;
+      if (on && !running) { running = true; requestAnimationFrame(frame); }
+      running = on;
+    }, { rootMargin: '50% 0px' }).observe(act);
+    frame();
+  }
 
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
   function smooth(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
