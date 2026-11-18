@@ -80,6 +80,75 @@
     .nx-less, .nx-bio:has(input:checked) .nx-more { display:none; }
     .nx-bio:has(input:checked) .nx-less { display:inline; }
   } }
+
+  /* ScrollCraft (github.com/nateherkai/scroll-craft). Only the published site sets html.sc-on (static.py), so the
+     design-tool preview and visitors without JavaScript get the plain, fully visible page. */
+  .sc-on .sc-act--pinned { position:relative; }
+  .sc-on .sc-stage { position:sticky; top:0; height:100vh; height:100svh; overflow:clip; }
+  .sc-on [data-sc-parallax] { will-change:transform; }
+  .sc-on [data-sc-reveal] { will-change:clip-path; }
+  [data-sc-count] { font-variant-numeric:tabular-nums; }
+  @media (prefers-reduced-motion: reduce) { .sc-on [data-sc-parallax] { transform:none !important; } .sc-on [data-sc-reveal] { clip-path:none !important; } }
+  @media (prefers-reduced-motion: no-preference) {
+    /* teacher driven -> student driven: the arrow draws itself, the three dots arrive, the student circle opens */
+    .sc-on .nx-shift[data-sc-act] > div { animation:none; }
+    .sc-on .nx-shift[data-sc-act] .nx-shift-line { stroke-dasharray:1; stroke-dashoffset:calc(1 - clamp(0, (var(--sc-p, 1) - 0.22) * 4, 1)); }
+    .sc-on .nx-shift[data-sc-act] .nx-shift-head { opacity:clamp(0, (var(--sc-p, 1) - 0.44) * 12, 1); }
+    .sc-on .nx-shift[data-sc-act] .nx-shift-dot { opacity:clamp(0, (var(--sc-p, 1) - 0.26 - var(--d) * 0.06) * 14, 1); }
+    .sc-on .nx-shift[data-sc-act] .nx-shift-a { opacity:calc(1 - clamp(0, (var(--sc-p, 1) - 0.42) * 3, 0.45)); }
+    .sc-on .nx-shift[data-sc-act] .nx-shift-b { clip-path:circle(calc(clamp(0, (var(--sc-p, 1) - 0.34) * 6, 1) * 71%) at 50% 50%); }
+    /* programme ladder: each bar rises in turn as the ladder crosses the screen */
+    .sc-on .nx-ladder[data-sc-act] > a { animation:none; }
+    .sc-on .nx-ladder[data-sc-act] > a > div { clip-path:inset(calc((1 - clamp(0, (var(--sc-p, 1) - 0.12 - var(--k) * 0.05) * 5, 1)) * 100%) 0 0 0); }
+  }
+  @media (prefers-reduced-motion: no-preference) and (max-width:700px) {
+    .sc-on .nx-ladder[data-sc-act] > a > div { clip-path:inset(0 calc((1 - clamp(0, (var(--sc-p, 1) - 0.12 - var(--k) * 0.05) * 5, 1)) * 100%) 0 0); }
+  }
+
+  /* Split stage ("Why Big Picture"): the comparison table as a pinned two-sided argument.
+     Plain table first; .nx-split-live (set by nx-scroll.js unless reduced motion) turns on the scroll version. */
+  .nx-split-rows { display:grid; grid-template-columns:1fr 1fr; }
+  .nx-split-row { display:contents; }
+  .nx-split-row > span { padding:18px 22px; font-size:16px; line-height:1.55; border-top:1px solid var(--color-gray-200); }
+  .nx-split-a { color:var(--color-gray-700); }
+  .nx-split-b { color:var(--color-charcoal); font-weight:700; background:rgba(141,198,63,0.12); }
+  .nx-split-hdr > span { padding:16px 22px; font-size:12px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; background:var(--color-gray-50); color:var(--color-gray-700); }
+  .nx-split-hdr > span + span { background:var(--color-charcoal); color:var(--color-yellow); }
+  .nx-split-end { display:flex; flex-direction:column; gap:22px; align-items:flex-start; padding-top:40px; max-width:620px; }
+  .nx-split-end p { margin:0; font-size:18px; line-height:1.6; color:var(--color-gray-700); }
+  .nx-split-labels, .nx-split-meter { display:none; }
+  .nx-split:not(.nx-split-live) { padding-bottom:clamp(48px,6.5vw,96px); }
+  @media (max-width:700px) {
+    .nx-split-row > span { padding:12px 14px; font-size:15px; }
+    .nx-split-hdr > span { padding:12px 14px; font-size:11px; }
+  }
+  .nx-split-live { background:var(--color-charcoal); }
+  .nx-split-live .sc-stage { --split:50%; background:linear-gradient(90deg, var(--color-gray-50) var(--split), var(--color-charcoal) var(--split)); }
+  .nx-split-live .nx-split-inner { position:absolute; inset:0; box-sizing:border-box; }
+  .nx-split-live .nx-split-labels { display:grid; grid-template-columns:1fr 1fr; position:absolute; left:clamp(20px,4vw,32px); right:clamp(20px,4vw,32px); top:var(--nx-top, 140px); z-index:2; pointer-events:none; }
+  .nx-split-live .nx-split-labels > span { padding:0 clamp(16px,4vw,56px); font-size:12px; font-weight:800; letter-spacing:0.16em; text-transform:uppercase; color:var(--color-gray-700); }
+  .nx-split-live .nx-split-labels > span + span { color:var(--color-yellow); }
+  .nx-split-live .nx-split-meter { display:block; position:absolute; left:calc(50% - 1px); top:var(--nx-top, 140px); bottom:28px; width:3px; background:rgba(255,255,255,0.14); z-index:2; }
+  .nx-split-live .nx-split-meter > i { position:absolute; inset:0; background:var(--color-yellow); transform-origin:50% 0; transform:scaleY(var(--prog, 0)); }
+  .nx-split-live .nx-split-window { position:absolute; left:clamp(20px,4vw,32px); right:clamp(20px,4vw,32px); top:calc(var(--nx-top, 140px) + 36px); bottom:0; overflow:hidden;
+    -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 14%, #000 82%, transparent 100%); mask-image:linear-gradient(180deg, transparent 0, #000 14%, #000 82%, transparent 100%); }
+  .nx-split-live .nx-split-rows { will-change:transform; transform:translate3d(0, var(--ty, 0px), 0); }
+  .nx-split-live .nx-split-hdr { display:none; }
+  .nx-split-live .nx-split-row > span { border:0; background:none; padding:clamp(14px,2.4vh,26px) clamp(16px,4vw,56px); font-family:var(--font-display); font-weight:800;
+    font-size:clamp(17px,2vw,28px); line-height:1.25; text-wrap:balance; transition:opacity 0.18s linear; }
+  .nx-split-live .nx-split-a { color:var(--color-charcoal); }
+  .nx-split-live .nx-split-a > span { background:linear-gradient(var(--color-red-deep), var(--color-red-deep)) no-repeat 0 58% / var(--s, 0%) 3px; }
+  .nx-split-live .nx-split-b { color:#fff; }
+  .nx-split-live .nx-split-end { position:absolute; left:clamp(16px,6vw,96px); right:clamp(16px,6vw,96px); bottom:clamp(40px,12vh,120px); max-width:720px; padding:0; z-index:3;
+    opacity:var(--end, 0); visibility:var(--endvis, hidden); }
+  .nx-split-live .nx-split-end h2 { color:#fff !important; }
+  .nx-split-live .nx-split-end p { color:rgba(255,255,255,0.86) !important; }
+  @media (max-width:700px) {
+    .nx-split-live .nx-split-row > span { font-size:15px; line-height:1.35; padding:12px 14px; font-family:var(--font-sans); }
+    .nx-split-live .nx-split-labels > span { padding:0 14px; font-size:11px; }
+    .nx-split-live .nx-split-window { top:calc(var(--nx-top, 140px) + 52px); }
+  }
+
   @keyframes riseIn { from { opacity:0; transform:translateY(34px); } to { opacity:1; transform:none; } }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
   @keyframes wipeUp { from { clip-path:inset(100% 0 0 0); transform:translateY(22px); } to { clip-path:inset(0 0 0 0); transform:none; } }
@@ -107,7 +176,7 @@
 
 <main id="main">
 <section class="nx-hero" data-screen-label="Hero" style="position:relative;min-height:min(72vh,700px);background:var(--color-charcoal);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end">
-<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none"><picture style="display:contents"><source type="image/webp" srcSet="../assets/web/r/building-round-480.webp 480w, ../assets/web/r/building-round-800.webp 800w, ../assets/web/r/building-round-1200.webp 1200w, ../assets/web/r/building-round-1800.webp 1800w" sizes="100vw"><img src="../assets/web/r/building-round-1200.jpg" srcSet="../assets/web/r/building-round-480.jpg 480w, ../assets/web/r/building-round-800.jpg 800w, ../assets/web/r/building-round-1200.jpg 1200w, ../assets/web/r/building-round-1800.jpg 1800w" sizes="100vw" decoding="async" alt="The NEXT School building" fetchPriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;animation:zoomOut 12s cubic-bezier(0.16,0.84,0.24,1) both"></picture></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,28,32,0.74) 0%,rgba(24,28,32,0.5) 30%,rgba(24,28,32,0.74) 58%,rgba(24,28,32,0.92) 100%);pointer-events:none"></div>
+<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none"><div style="position:absolute;inset:0"><picture style="display:contents"><source type="image/webp" srcSet="../assets/web/r/building-round-480.webp 480w, ../assets/web/r/building-round-800.webp 800w, ../assets/web/r/building-round-1200.webp 1200w, ../assets/web/r/building-round-1800.webp 1800w" sizes="100vw"><img src="../assets/web/r/building-round-1200.jpg" srcSet="../assets/web/r/building-round-480.jpg 480w, ../assets/web/r/building-round-800.jpg 800w, ../assets/web/r/building-round-1200.jpg 1200w, ../assets/web/r/building-round-1800.jpg 1800w" sizes="100vw" decoding="async" alt="The NEXT School building" fetchPriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;animation:zoomOut 12s cubic-bezier(0.16,0.84,0.24,1) both"></picture></div></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,28,32,0.74) 0%,rgba(24,28,32,0.5) 30%,rgba(24,28,32,0.74) 58%,rgba(24,28,32,0.92) 100%);pointer-events:none"></div>
 <div style="position:relative;box-sizing:border-box;max-width:1320px;margin:0 auto;width:100%;padding:124px clamp(20px,4vw,32px) clamp(40px,7vw,88px);display:flex;flex-direction:column;gap:clamp(18px,2.4vw,26px)">
   <span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-yellow);animation:fadeIn 0.8s 0.1s ease both">Contact</span>
   <h1 style="margin:0;font-size:clamp(36px,min(7vw,11vh),104px);line-height:0.92;font-weight:800;text-transform:uppercase;letter-spacing:-0.015em;color:#fff">
@@ -287,7 +356,7 @@
   if(C.componentDidMount) C.componentDidMount();
 })();
 </script>
-<a class="nx-badge" href="https://www.nextschool.org" target="_blank" rel="noopener" style="position:fixed;left:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:8px;background:rgba(24,28,32,0.92);color:#fff;font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:0.02em;padding:10px 14px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.25)"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-yellow)"></span><span class="nx-badge-l">Design preview — not the official NEXT School website</span><span class="nx-badge-s">Preview · not the official site</span></a>
+<a class="nx-badge" href="https://www.nextschool.org" target="_blank" rel="noopener" style="position:fixed;left:16px;bottom:16px;z-index:90;display:flex;align-items:center;gap:8px;background:rgba(24,28,32,0.92);color:#fff;font-family:var(--font-sans);font-size:12px;font-weight:700;letter-spacing:0.02em;padding:10px 14px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,0.25)"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-yellow)"></span><span class="nx-badge-l">Design preview: not the official NEXT School website</span><span class="nx-badge-s">Preview · not the official site</span></a>
 <style>.nx-badge-s{display:none}@media (max-width:700px){.nx-badge-l{display:none}.nx-badge-s{display:inline}a.nx-badge{left:10px!important;bottom:10px!important;padding:7px 11px!important;font-size:11px!important;opacity:0.92}}</style>
 </body>
 </html>
