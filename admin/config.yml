@@ -1,0 +1,150 @@
+# NEXT School content editor (Sveltia CMS, Decap-compatible config)
+# Each save becomes a commit to content/*.json in the source repository; the GitHub Action
+# (.github/workflows/publish.yml) then rebuilds the site and publishes it.
+backend:
+  name: github
+  repo: OWNER/REPOSITORY        # TODO: the GitHub repository that holds this source folder
+  branch: main
+  commit_messages:
+    update: "Content: update {{slug}} (via CMS)"
+
+media_folder: assets/web/live   # uploaded photos go next to the existing portraits
+public_folder: assets/web/live
+
+site_url: https://samvitakg.github.io/next-school-redesign/
+display_url: https://samvitakg.github.io/next-school-redesign/
+
+# Text fields keep the small bits of HTML the site already uses: <br> for a line break, &amp; for "&".
+collections:
+  - name: people
+    label: Teams and trustees
+    icon: groups
+    files:
+      - name: people
+        label: People on the site
+        file: content/people.json
+        format: json
+        fields:
+          - name: about_team
+            label: "About us, team"
+            widget: list
+            summary: "{{name}}, {{role}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Bio, widget: text }
+              - { name: photo, label: Photo, widget: image, required: false }
+          - name: trustees
+            label: "About us, trustees"
+            widget: list
+            summary: "{{name}}, {{role}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Bio, widget: text }
+              - { name: photo, label: Photo, widget: image, required: false }
+          - name: big_picture_founders
+            label: "What is Big Picture?, founders"
+            widget: list
+            summary: "{{name}}, {{role}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Bio, widget: text }
+              - { name: photo, label: Photo, widget: image, required: false }
+          - name: lower_parel_team
+            label: "Lower Parel, team"
+            widget: list
+            summary: "{{name}}, {{role}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Bio, widget: text }
+              - { name: photo, label: Photo, widget: image, required: false }
+          - name: south_goa_team
+            label: "South Goa, team"
+            widget: list
+            summary: "{{name}}, {{role}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Bio, widget: text }
+              - { name: photo, label: Photo, widget: image, required: false }
+
+  - name: testimonials
+    label: Testimonials
+    icon: format_quote
+    files:
+      - name: testimonials
+        label: What people say about Big Picture
+        file: content/testimonials.json
+        format: json
+        fields:
+          - name: quotes
+            label: Quotes
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Who they are, widget: string, required: false }
+              - { name: photo, label: Portrait, widget: image }
+
+  - name: careers
+    label: Careers
+    icon: work
+    files:
+      - name: careers
+        label: Open positions
+        file: content/careers.json
+        format: json
+        fields:
+          - name: mumbai_roles
+            label: "Mumbai: Mulund and Lower Parel"
+            widget: list
+            field: { name: title, label: Job title, widget: string }
+          - name: south_goa_roles
+            label: South Goa
+            widget: list
+            field: { name: title, label: Job title, widget: string }
+
+  - name: admissions
+    label: Admissions
+    icon: school
+    files:
+      - name: admissions
+        label: Admission steps and deposits
+        file: content/admissions.json
+        format: json
+        fields:
+          - name: steps
+            label: Admission steps
+            widget: list
+            summary: "{{title}}"
+            fields:
+              - { name: title, label: Step, widget: string }
+              - { name: text, label: What happens, widget: text }
+          - name: deposits
+            label: Deposits
+            widget: list
+            summary: "{{label}}: {{amount}}"
+            fields:
+              - { name: label, label: Deposit, widget: string }
+              - { name: amount, label: Amount, widget: string }
+
+  - name: faq
+    label: FAQs
+    icon: help
+    files:
+      - name: faq
+        label: NEXT Hub questions
+        file: content/faq.json
+        format: json
+        fields:
+          - name: next_hub
+            label: NEXT Hub (after school)
+            widget: list
+            summary: "{{question}}"
+            fields:
+              - { name: question, label: Question, widget: string }
+              - { name: answer, label: Answer, widget: text }
