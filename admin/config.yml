@@ -3,7 +3,7 @@
 # (.github/workflows/publish.yml) then rebuilds the site and publishes it.
 backend:
   name: github
-  repo: OWNER/REPOSITORY        # TODO: the GitHub repository that holds this source folder
+  repo: samvitakg/next-school-source   # private repository that holds this source folder
   branch: main
   commit_messages:
     update: "Content: update {{slug}} (via CMS)"
