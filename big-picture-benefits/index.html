@@ -163,6 +163,60 @@
   }
 
 
+  /* ---------------- Motion pass 2 */
+  /* colour sections open out from a rounded card to the full width */
+  .nx-bloom { animation:bloom linear both; animation-timeline:view(); animation-range:entry 0% entry 95%; }
+  @keyframes bloom { from { clip-path:inset(5% 4% 0 4% round 36px); } to { clip-path:inset(0 0 0 0 round 0); } }
+  /* long statements light up word by word as they move up the screen */
+  .nx-rw { animation:readIn linear both; animation-timeline:view(); animation-range:cover 8% cover 42%; }
+  @keyframes readIn { from { opacity:0.16; } to { opacity:1; } }
+  /* small labels spread into place */
+  .nx-eb { display:inline-block; animation:track linear both; animation-timeline:view(); animation-range:entry 10% cover 28%; }
+  @keyframes track { from { opacity:0; letter-spacing:0.6em; } to { opacity:1; } }
+  /* hero photo pushes in as you leave; the no-photo heroes turn their big mark */
+  .nx-hero-media { animation:heroZoom linear both; animation-timeline:--hero; animation-range:exit 0% exit 100%; }
+  @keyframes heroZoom { to { transform:scale(1.16); } }
+  .nx-hero > svg { animation:heroGlyph linear both; animation-timeline:--hero; animation-range:exit 0% exit 100%; }
+  @keyframes heroGlyph { to { transform:rotate(22deg) scale(1.25); } }
+  /* step numbers flip up */
+  .nx-num { display:inline-block; transform-origin:0 100%; animation:numUp linear both; animation-timeline:view(); animation-range:entry 15% cover 32%; }
+  @keyframes numUp { from { opacity:0; transform:translateY(70%) rotate(-14deg); } to { opacity:1; transform:none; } }
+  /* feature icons pop */
+  .nx-tile > span:first-child { animation:pop linear both; animation-timeline:view(); animation-range:entry 35% cover 34%; }
+  @keyframes pop { 0% { transform:scale(0) rotate(-120deg); } 70% { transform:scale(1.18) rotate(8deg); } 100% { transform:none; } }
+  /* contact rows slide in one by one */
+  .nx-cl { animation:slideIn linear both; animation-timeline:view(); animation-range:entry 10% cover 28%; }
+  @keyframes slideIn { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:none; } }
+  /* the enquiry form swings up into place */
+  .nx-form { transform-origin:100% 100%; animation:formIn linear both; animation-timeline:view(); animation-range:entry 0% cover 34%; }
+  @keyframes formIn { from { opacity:0; transform:translateY(90px) rotate(3.5deg); } to { opacity:1; transform:none; } }
+  /* testimonials: portrait opens like an iris, a giant quote mark drifts behind */
+  .nx-quotes { view-timeline:--qs; }
+  .nx-qpic { animation:iris linear both; animation-timeline:view(); animation-range:entry 25% cover 40%; }
+  @keyframes iris { from { clip-path:circle(0% at 50% 50%); transform:rotate(-30deg); } to { clip-path:circle(75% at 50% 50%); transform:none; } }
+  .nx-qmark { position:absolute; left:-2vw; top:-14vw; font-family:var(--font-display); font-weight:900; font-size:clamp(260px,42vw,640px); line-height:1;
+      color:rgba(255,255,255,0.22); pointer-events:none; animation:qDrift linear both; animation-timeline:--qs; animation-range:cover 0% cover 100%; }
+  @keyframes qDrift { from { transform:translateY(-12%) rotate(-8deg); } to { transform:translateY(22%) rotate(6deg); } }
+  /* footer: the wordmark rises out of the bottom edge */
+  .nx-foot-mark { overflow:clip; margin-top:8px; }
+  .nx-foot-mark svg { width:100%; height:auto; color:var(--color-yellow); animation:footRise linear both; animation-timeline:view(); animation-range:entry 0% entry 100%; }
+  @keyframes footRise { from { transform:translateY(70%); } to { transform:none; } }
+  /* hover life (uses translate/scale so it stacks with the scroll animations) */
+  .nx-grid > article, .nx-tile, .nx-ladder > a > div { transition:translate 0.35s cubic-bezier(0.2,0.7,0.3,1), box-shadow 0.35s ease; }
+  .nx-grid > article:hover, .nx-tile:hover { translate:0 -6px; }
+  .nx-tile:hover { box-shadow:0 22px 44px rgba(45,50,54,0.12); }
+  .nx-ladder > a:hover > div { translate:0 -10px; }
+  .nx-grid > article img { transition:filter 0.4s ease; }
+  .nx-grid > article:hover img { filter:none !important; }
+  .nx-ph img, .nx-vid > img, .nx-rail-ph img { transition:scale 0.7s cubic-bezier(0.2,0.7,0.3,1); }
+  .nx-ph:hover img, .nx-vid:hover > img, .nx-rail-ph:hover img { scale:1.06; }
+  .nx-play { transition:scale 0.3s cubic-bezier(0.2,0.7,0.3,1); }
+  .nx-vid:hover .nx-play { scale:1.14; }
+  .nx-btn { transition:background 0.2s ease, color 0.2s ease, scale 0.15s ease; }
+  .nx-btn:active { scale:0.96; }
+  .nx-btn-cap { transition:rotate 0.3s cubic-bezier(0.2,0.7,0.3,1); }
+  .nx-btn:hover .nx-btn-cap { rotate:-45deg; }
+
   /* ---------------- Motion layer (scroll-driven CSS; browsers without scroll timelines show everything still) */
   /* headings: each word rises out of its own mask as the heading scrolls in */
   .nx-wd { display:inline-block; overflow:clip; overflow-clip-margin:0.12em; vertical-align:top; }
@@ -233,6 +287,20 @@
     @keyframes heroOut { to { opacity:0.15; } }
     .nx-play::before { animation:none; opacity:0; }
     .sc-on .nx-rail-live .nx-rail-ph img { transform:none; }
+
+    @keyframes heroZoom { to { opacity:1; } }
+    @keyframes heroGlyph { to { opacity:1; } }
+    @keyframes track { from { opacity:0; } to { opacity:1; } }
+    @keyframes numUp { from { opacity:0; } to { opacity:1; } }
+    @keyframes pop { from { opacity:0; } to { opacity:1; } }
+    @keyframes slideIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes formIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes iris { from { clip-path:circle(0% at 50% 50%); } to { clip-path:circle(75% at 50% 50%); } }
+    @keyframes qDrift { to { opacity:1; } }
+    @keyframes footRise { from { opacity:0; } to { opacity:1; } }
+    .nx-grid > article:hover, .nx-tile:hover, .nx-ladder > a:hover > div { translate:none; }
+    .nx-ph:hover img, .nx-vid:hover > img, .nx-rail-ph:hover img, .nx-vid:hover .nx-play { scale:none; }
+    .nx-btn:hover .nx-btn-cap { rotate:none; }
   }
 </style>
 <style>:root{--b-navBg:rgba(24,28,32,0.28);--b-navBlur:none;--b-navBorder:rgba(255,255,255,0.14);--b-navInk:#fff;--b-navLine:rgba(255,255,255,0.5);--b-mobileOpen:none;--b-videoOpen:none;--b-videoSrc:about:blank;--b-menu_bp:none;--b-caret_bp:none;--b-menu_schools:none;--b-caret_schools:none;--b-menu_adm:none;--b-caret_adm:none;--b-qop0:1;--b-qvis0:visible;--b-qhid0:false;--b-qdot0:var(--color-charcoal);--b-qop1:0;--b-qvis1:hidden;--b-qhid1:true;--b-qdot1:rgba(45,50,54,0.32);--b-qop2:0;--b-qvis2:hidden;--b-qhid2:true;--b-qdot2:rgba(45,50,54,0.32);--b-qop3:0;--b-qvis3:hidden;--b-qhid3:true;--b-qdot3:rgba(45,50,54,0.32)}
@@ -256,7 +324,7 @@
 
 <main id="main">
 <section class="nx-hero" data-screen-label="Hero" style="position:relative;min-height:min(76svh,760px);background:var(--color-charcoal);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end">
-<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none"><div style="position:absolute;inset:0"><picture style="display:contents"><source type="image/webp" srcSet="../assets/web/r/jungle-gym-480.webp 480w, ../assets/web/r/jungle-gym-800.webp 800w, ../assets/web/r/jungle-gym-1200.webp 1200w, ../assets/web/r/jungle-gym-1800.webp 1800w" sizes="100vw"><img src="../assets/web/r/jungle-gym-1200.jpg" srcSet="../assets/web/r/jungle-gym-480.jpg 480w, ../assets/web/r/jungle-gym-800.jpg 800w, ../assets/web/r/jungle-gym-1200.jpg 1200w, ../assets/web/r/jungle-gym-1800.jpg 1800w" sizes="100vw" decoding="async" alt="Children on the indoor climbing wall" fetchPriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;animation:zoomOut 12s cubic-bezier(0.16,0.84,0.24,1) both"></picture></div></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,28,32,0.74) 0%,rgba(24,28,32,0.5) 30%,rgba(24,28,32,0.74) 58%,rgba(24,28,32,0.92) 100%);pointer-events:none"></div>
+<div class="nx-hero-media" style="position:absolute;inset:0;overflow:clip;pointer-events:none"><div style="position:absolute;inset:0"><picture style="display:contents"><source type="image/webp" srcSet="../assets/web/r/jungle-gym-480.webp 480w, ../assets/web/r/jungle-gym-800.webp 800w, ../assets/web/r/jungle-gym-1200.webp 1200w, ../assets/web/r/jungle-gym-1800.webp 1800w" sizes="100vw"><img src="../assets/web/r/jungle-gym-1200.jpg" srcSet="../assets/web/r/jungle-gym-480.jpg 480w, ../assets/web/r/jungle-gym-800.jpg 800w, ../assets/web/r/jungle-gym-1200.jpg 1200w, ../assets/web/r/jungle-gym-1800.jpg 1800w" sizes="100vw" decoding="async" alt="Children on the indoor climbing wall" fetchPriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;animation:zoomOut 12s cubic-bezier(0.16,0.84,0.24,1) both"></picture></div></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,28,32,0.74) 0%,rgba(24,28,32,0.5) 30%,rgba(24,28,32,0.74) 58%,rgba(24,28,32,0.92) 100%);pointer-events:none"></div>
 <div class="nx-hero-copy" style="position:relative;box-sizing:border-box;max-width:1320px;margin:0 auto;width:100%;padding:124px clamp(20px,4vw,32px) clamp(40px,7vw,88px);display:flex;flex-direction:column;gap:clamp(18px,2.4vw,26px)">
   <span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-yellow);animation:fadeIn 0.8s 0.1s ease both">Benefits of Big Picture Learning</span>
   <h1 style="margin:0;font-size:clamp(36px,min(7vw,11vh),104px);line-height:0.92;font-weight:800;text-transform:uppercase;letter-spacing:-0.015em;color:#fff">
@@ -267,9 +335,9 @@
 </div>
 </section>
 <nav aria-label="In this section" style="position:sticky;top:76px;z-index:30;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-gray-200)"><div class="nx-subnav" style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,32px);display:flex;overflow-x:auto;scrollbar-width:none"><a class="h2" href="../big-picture/" style="flex:none;padding:18px 2px;margin-right:clamp(18px,3vw,36px);font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;color:var(--color-gray-700);box-shadow:none">What is Big Picture?</a><a class="h2" href="../how-big-picture/" style="flex:none;padding:18px 2px;margin-right:clamp(18px,3vw,36px);font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;color:var(--color-gray-700);box-shadow:none">How Big Picture works</a><a class="h2" href="../why-big-picture/" style="flex:none;padding:18px 2px;margin-right:clamp(18px,3vw,36px);font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;color:var(--color-gray-700);box-shadow:none">Why Big Picture?</a><a class="h2" href="../big-picture-benefits/" style="flex:none;padding:18px 2px;margin-right:clamp(18px,3vw,36px);font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;color:var(--color-charcoal);box-shadow:inset 0 -3px 0 var(--color-yellow)" aria-current="page">Benefits of Big Picture</a></div></nav>
-<section data-screen-label="Students" style="position:relative;background:var(--color-charcoal);padding:clamp(44px,5.5vw,80px) clamp(20px,4vw,32px);scroll-margin-top:76px;">
+<section class="nx-bloom" data-screen-label="Students" style="position:relative;background:var(--color-charcoal);padding:clamp(44px,5.5vw,80px) clamp(20px,4vw,32px);scroll-margin-top:76px;">
 <div style="position:relative;max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(28px,3.6vw,44px)">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(36px,6vw,88px);align-items:center"><div style="display:flex;flex-direction:column;gap:20px;animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%"><span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;line-height:1.4;color:var(--color-yellow);">In their words</span><h2 style="margin:0;font-size:clamp(30px,3.4vw,50px);line-height:1.05;overflow-wrap:break-word;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;color:#fff;text-wrap:balance;"><span class="nx-wd"><span style="--i:0">Students</span></span> <span class="nx-wd"><span style="--i:1">on</span></span> <span class="nx-wd"><span style="--i:2">Big</span></span> <span class="nx-wd"><span style="--i:3">Picture</span></span></h2></div><div style="animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%"><div role="button" tabIndex="0" data-on-click="play" data-video="cfyK4qoe458" data-list="0" class="nx-vid h3" style="position:relative;aspect-ratio:16/9;background:#000;overflow:clip;cursor:pointer">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(36px,6vw,88px);align-items:center"><div style="display:flex;flex-direction:column;gap:20px;animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%"><span class="nx-eb" style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;line-height:1.4;color:var(--color-yellow);">In their words</span><h2 style="margin:0;font-size:clamp(30px,3.4vw,50px);line-height:1.05;overflow-wrap:break-word;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;color:#fff;text-wrap:balance;"><span class="nx-wd"><span style="--i:0">Students</span></span> <span class="nx-wd"><span style="--i:1">on</span></span> <span class="nx-wd"><span style="--i:2">Big</span></span> <span class="nx-wd"><span style="--i:3">Picture</span></span></h2></div><div style="animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%"><div role="button" tabIndex="0" data-on-click="play" data-video="cfyK4qoe458" data-list="0" class="nx-vid h3" style="position:relative;aspect-ratio:16/9;background:#000;overflow:clip;cursor:pointer">
   <img src="https://i.ytimg.com/vi/cfyK4qoe458/hqdefault.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.82">
   <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,28,32,0) 40%,rgba(24,28,32,0.85) 100%)"></div>
   <span class="nx-play" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:var(--color-yellow);display:flex;align-items:center;justify-content:center;color:var(--color-charcoal);font-size:22px;padding-left:5px;box-sizing:border-box;box-shadow:0 12px 34px rgba(0,0,0,0.35)" aria-hidden="true">▶</span>
@@ -282,24 +350,24 @@
 </section>
 <section data-screen-label="Benefits 1" style="position:relative;background:#fff;padding:clamp(44px,5.5vw,80px) clamp(20px,4vw,32px);scroll-margin-top:76px;">
 <div style="position:relative;max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(28px,3.6vw,44px)">
-<div><div style="display:flex;flex-direction:column;gap:14px;"><span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;line-height:1.4;color:var(--color-cyan-ink);">The benefits</span><h2 style="margin:0;font-size:clamp(28px,4.2vw,60px);line-height:1.05;overflow-wrap:break-word;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;color:var(--color-charcoal);text-wrap:balance;"><span class="nx-wd"><span style="--i:0">Ten</span></span> <span class="nx-wd"><span style="--i:1">benefits</span></span></h2></div></div><div class="nx-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:clamp(28px,3vw,40px) clamp(24px,3vw,36px);"><div class="nx-step" style="--c:var(--color-yellow);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-yellow);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">01</span>
+<div><div style="display:flex;flex-direction:column;gap:14px;"><span class="nx-eb" style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;line-height:1.4;color:var(--color-cyan-ink);">The benefits</span><h2 style="margin:0;font-size:clamp(28px,4.2vw,60px);line-height:1.05;overflow-wrap:break-word;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;color:var(--color-charcoal);text-wrap:balance;"><span class="nx-wd"><span style="--i:0">Ten</span></span> <span class="nx-wd"><span style="--i:1">benefits</span></span></h2></div></div><div class="nx-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:clamp(28px,3vw,40px) clamp(24px,3vw,36px);"><div class="nx-step" style="--c:var(--color-yellow);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-yellow);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">01</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Student at the centre</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">Rather than put the teacher at the centre, Big Picture puts the student at the centre. We begin by asking each child what she wants to learn – what is she curious about? What is she interested in? So school becomes about unleashing curiosity rather than force feeding knowledge to our children.</p>
 </div><div class="nx-step" style="--c:var(--color-cyan);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-cyan);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">02</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">02</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Personalised learning</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">With Big Picture, each child can learn at her own pace. If someone is excelling in certain areas, she can keep going far ahead toward mastery. If she’s lagging in other areas, she can spend more time and effort to catch up. Children can learn from various avenues like video lectures, learning games, peer learning, etc instead of being lectured all day.</p>
 </div><div class="nx-step" style="--c:var(--color-purple);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-purple);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">03</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">03</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">More rewarding and effective</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">When you are learning what you want to learn, and exploring your own interests and passions the biggest benefit is that you will be happier and more engaged at school. Not only that, you would be much more motivated and energised by your learning. This is perhaps the biggest benefit of Big Picture.</p>
 </div><div class="nx-step" style="--c:var(--color-green);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-green);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">04</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">04</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Passion &amp; interest based</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">Big Picture focuses on developing the talents and passions of each child. From a young age we help each child answer some of the biggest, most important questions in his life – what is he passionate about? what does he enjoy doing? how can he contribute to this world?</p>
 </div><div class="nx-step" style="--c:var(--color-red);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-red);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">05</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">05</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Real world learning</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">Big Picture focuses on connecting each child’s learning to the real world at every step of the way. We begin by interest exploration exercises that expose children to a world of different professions, industries and occupations. At older ages, children engage in internships and mentorship programs from their field of interest.</p>
 </div></div>
@@ -309,29 +377,29 @@
 <section data-screen-label="Benefits 2" style="position:relative;background:#fff;padding:clamp(44px,5.5vw,80px) clamp(20px,4vw,32px);scroll-margin-top:76px;">
 <div style="position:relative;max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(28px,3.6vw,44px)">
 <div class="nx-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:clamp(28px,3vw,40px) clamp(24px,3vw,36px);"><div class="nx-step" style="--c:var(--color-yellow);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-yellow);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">06</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">06</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Authentic learning</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">No book can teach someone how to be a good doctor, lawyer or businessman. The only way to learn these things is to actually do it. Big Picture focuses on learning by doing – children do real things, build products, make presentations, collaborate; just like in real world occupations and professions.</p>
 </div><div class="nx-step" style="--c:var(--color-cyan);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-cyan);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">07</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">07</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">21st century skills</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">Doing real work in the real world builds valuable 21st century skills like creativity, collaboration, communication, planning and time management in contrast to traditional schools that focus on industrial age skills like obedience and compliance.</p>
 </div><div class="nx-step" style="--c:var(--color-purple);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-purple);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">08</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">08</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Autonomy</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">Once each child has set personalised goals for herself based on her passions and interests, we would give her a lot of autonomy and freedom to figure out how to best achieve her goals. She has to manage her own time, schedule commitments and figure out a balance. She has to seek out resources and people who will help her achieve her goals. This helps makes students self-directed and autonomous.</p>
 </div><div class="nx-step" style="--c:var(--color-green);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-green);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">09</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">09</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Goal setting</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">Research shows that to be successful in the real world, we need to be able to set goals, plan around how to achieve the goals and persevere to achieve them. This is exactly what happens in each learning cycle under the Big Picture framework. From a young age, children learn critical goal setting and planning skills.</p>
 </div><div class="nx-step" style="--c:var(--color-red);display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:3px solid var(--color-red);animation:riseIn linear both;animation-timeline:view();animation-range:entry 0% cover 24%">
-  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)">10</span>
+  <span aria-hidden="true" style="font-family:var(--font-display);font-size:40px;font-weight:900;line-height:1;color:var(--color-charcoal)"><span class="nx-num">10</span></span>
   <h3 style="margin:0;font-size:20px;line-height:1.15;font-weight:800;text-transform:uppercase;color:var(--color-charcoal);">Culture and relationships</h3>
   <p style="margin:0;font-size:16px;line-height:1.7;color:var(--color-gray-700);text-wrap:pretty;">Big Picture schools are places where students are pursuing their unique interests and passions and are developing diverse skills and talents. This is in contrast to traditional schools where your child is doing the exact same thing as everyone else and being constantly compared with others. At Big Picture schools, children are more than just a test score and are known by the school community for who they are, their unique talents, skills and interests.</p>
 </div></div>
 </div>
 </section>
-<section data-screen-label="Next step" style="background:var(--color-yellow);padding:clamp(64px,8vw,104px) clamp(20px,4vw,32px)">
+<section class="nx-bloom" data-screen-label="Next step" style="background:var(--color-yellow);padding:clamp(64px,8vw,104px) clamp(20px,4vw,32px)">
   <div style="max-width:1320px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:32px 64px;flex-wrap:wrap">
     <div style="display:flex;flex-direction:column;gap:18px;max-width:760px">
       <h2 style="margin:0;font-size:clamp(30px,3.6vw,52px);line-height:1.05;overflow-wrap:break-word;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;color:var(--color-charcoal);text-wrap:balance;"><span class="nx-wd"><span style="--i:0">Sign</span></span> <span class="nx-wd"><span style="--i:1">up</span></span> <span class="nx-wd"><span style="--i:2">for</span></span> <span class="nx-wd"><span style="--i:3">a</span></span> <span class="nx-wd"><span style="--i:4">1&#8209;on&#8209;1</span></span> <span class="nx-wd"><span style="--i:5">session</span></span></h2>
@@ -343,7 +411,7 @@
 </main>
 <footer data-screen-label="Footer" style="background:var(--color-charcoal);padding:72px clamp(20px,4vw,32px) 32px">
   <div style="max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:48px">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(32px,4vw,48px)">
+    <div class="nx-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(32px,4vw,48px)">
       <a href="../" aria-label="NEXT School home" style="align-self:flex-start;color:#fff"><svg viewBox="4 106 792 193" width="139.5" height="34" role="img" aria-label="NEXT" style="display:block;color:currentColor;"><g fill="currentColor"><path d="M4 298V205a96.5 96.5 0 0 1 193 0v93h-44v-93a52.5 52.5 0 0 0-105 0v93z"></path><path d="M225 114h155v41H225zM225 185h155v41H225zM225 258h155v41H225z"></path><path d="M677 108h46v73h73v45h-73v73h-46v-73h-73v-45h73z"></path></g><path d="M424.5 122L586.5 284M586.5 122L424.5 284" stroke="currentColor" stroke-width="44" fill="none"></path></svg></a>
       <div style="display:flex;flex-direction:column;gap:0"><span style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-yellow);padding-bottom:6px">Big Picture Learning</span><a class="h0" href="../big-picture/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">What is Big Picture?</a><a class="h0" href="../how-big-picture/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">How Big Picture works</a><a class="h0" href="../why-big-picture/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">Why Big Picture?</a><a class="h0" href="../big-picture-benefits/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">Benefits of Big Picture</a></div>
       <div style="display:flex;flex-direction:column;gap:0"><span style="font-size:11px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-yellow);padding-bottom:6px">Schools</span><a class="h0" href="../mulund/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">Mulund, Mumbai</a><a class="h0" href="../mulund/programs/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">Programs at Mulund</a><a class="h0" href="../mulund/hub/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">NEXT Hub</a><a class="h0" href="../lower-parel/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">Lower Parel, Mumbai</a><a class="h0" href="../south-goa/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">South Goa</a><a class="h0" href="../admissions/" style="display:block;padding:10px 0;font-size:15px;color:#fff;text-decoration:none">Admissions &amp; fees</a></div>
@@ -355,6 +423,7 @@
         <span style="font-size:14px;line-height:1.7;color:#fff">Park Road, Off Devi Dayal Road,<br>Mulund W, Mumbai 400080</span>
       </div>
     </div>
+    <div class="nx-foot-mark" aria-hidden="true"><svg viewBox="4 106 792 193" width="656.6" height="160" role="img" aria-label="NEXT" style="display:block;color:var(--color-yellow);"><g fill="currentColor"><path d="M4 298V205a96.5 96.5 0 0 1 193 0v93h-44v-93a52.5 52.5 0 0 0-105 0v93z"></path><path d="M225 114h155v41H225zM225 185h155v41H225zM225 258h155v41H225z"></path><path d="M677 108h46v73h73v45h-73v73h-46v-73h-73v-45h73z"></path></g><path d="M424.5 122L586.5 284M586.5 122L424.5 284" stroke="currentColor" stroke-width="44" fill="none"></path></svg></div>
     <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:24px;border-top:1px solid rgba(255,255,255,0.16)">
       <span style="font-size:12px;color:rgba(255,255,255,0.55)">Copyright © 2026 NEXT School</span>
       <span style="display:flex;flex-wrap:wrap;gap:4px 18px"><a class="h0" href="https://www.facebook.com/nextschoolmulund/" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;font-size:13px;font-weight:700;color:#fff;text-decoration:none">Facebook</a><a class="h0" href="https://www.instagram.com/next.school/" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;font-size:13px;font-weight:700;color:#fff;text-decoration:none">Instagram</a><a class="h0" href="https://www.linkedin.com/company/next-school-mumbai" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;font-size:13px;font-weight:700;color:#fff;text-decoration:none">LinkedIn</a><a class="h0" href="https://www.youtube.com/channel/UCEb1b2lWpBA0Ux4wi8A4yJA" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;font-size:13px;font-weight:700;color:#fff;text-decoration:none">YouTube</a><a class="h0" href="https://wa.me/918591103781?text=Hi" target="_blank" rel="noopener" style="display:inline-block;padding:10px 0;font-size:13px;font-weight:700;color:#fff;text-decoration:none">WhatsApp</a></span>
