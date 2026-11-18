@@ -257,7 +257,7 @@
   @keyframes glyph { from { transform:translateY(90px) rotate(-10deg); } to { transform:translateY(-90px) rotate(8deg); } }
 
   /* ---------------- Photo rail: a pinned sideways walk through the campus (ScrollCraft pin + nx-scroll.js) */
-  .nx-rail-track { display:flex; gap:clamp(12px,1.6vw,20px); align-items:center; overflow-x:auto; scroll-snap-type:x mandatory; padding:0 clamp(20px,4vw,32px) 12px; }
+  .nx-rail-track { display:flex; gap:clamp(12px,1.6vw,20px); align-items:center; overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-inline:clamp(20px,4vw,32px); padding:0 clamp(20px,4vw,32px) 12px; }
   .nx-rail-track > * { flex:none; scroll-snap-align:start; }
   .nx-rail-intro { width:min(440px,82vw); display:flex; flex-direction:column; gap:20px; padding-right:clamp(8px,3vw,40px); box-sizing:border-box; }
   .nx-rail-ph { margin:0; height:clamp(260px,58vh,600px); overflow:clip; background:var(--color-gray-200); }
@@ -270,7 +270,7 @@
   .sc-on .nx-rail-live .nx-rail-ph img { transform:scale(calc(1.12 - var(--near, 0) * 0.12)); }
   .sc-on .nx-rail-live .nx-rail-bar { display:block; position:absolute; left:clamp(20px,4vw,32px); right:clamp(20px,4vw,32px); bottom:clamp(20px,4vh,40px); height:3px; background:var(--color-gray-200); }
   .sc-on .nx-rail-live .nx-rail-bar i { display:block; height:100%; background:var(--color-yellow); transform-origin:left; transform:scaleX(var(--rp, 0)); }
-  @media (max-width:700px) { .nx-rail-ph { height:clamp(220px,46vh,420px); } }
+  @media (max-width:700px) { .nx-rail-ph { height:clamp(200px,58vw,320px); } .nx-rail-intro { width:80vw; } }
   @keyframes riseIn { from { opacity:0; transform:translateY(34px); } to { opacity:1; transform:none; } }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
   @keyframes wipeUp { from { clip-path:inset(100% 0 0 0); transform:translateY(22px); } to { clip-path:inset(0 0 0 0); transform:none; } }

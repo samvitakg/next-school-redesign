@@ -7,9 +7,13 @@
   var splits = [].slice.call(document.querySelectorAll('[data-nx-split]'));
   // The strike runs under reduced motion too: it only moves while the reader scrolls (no autoplay, no parallax).
   // Without JavaScript the comparison is a plain table.
+  // Photo rails pin only on wider screens. On phones they stay a swipeable row, so scrolling down never waits on photos.
+  var rails = [].slice.call(document.querySelectorAll('[data-nx-rail]'));
+  var narrow = matchMedia('(max-width: 700px)').matches;
+  if (narrow) rails.forEach(function (r) { r.removeAttribute('data-sc-act'); });
   ScrollCraft.mount(document.body);
   splits.forEach(setup);
-  [].slice.call(document.querySelectorAll('[data-nx-rail]')).forEach(rail);
+  if (!narrow) rails.forEach(rail);
 
   /* Photo rail: while the section is pinned, scrolling down walks the row of campus photos to the left.
      The photo nearest the middle settles from a slight zoom; a yellow bar shows how far along you are. */
